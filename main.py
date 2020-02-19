@@ -1,24 +1,26 @@
 #!/usr/bin/env python3
 
 board = [
-    [7,8,0,4,0,0,1,2,0],
-    [6,0,0,0,7,5,0,0,9],
-    [0,0,0,6,0,1,0,7,8],
-    [0,0,7,0,4,0,2,6,0],
-    [0,0,1,0,5,0,9,3,0],
-    [9,0,4,0,6,0,0,0,5],
-    [0,7,0,3,0,0,0,1,2],
-    [1,2,0,0,0,7,4,0,0],
-    [0,4,9,2,0,6,0,0,7]
+    [7, 8, 0, 4, 0, 0, 1, 2, 0],
+    [6, 0, 0, 0, 7, 5, 0, 0, 9],
+    [0, 0, 0, 6, 0, 1, 0, 7, 8],
+    [0, 0, 7, 0, 4, 0, 2, 6, 0],
+    [0, 0, 1, 0, 5, 0, 9, 3, 0],
+    [9, 0, 4, 0, 6, 0, 0, 0, 5],
+    [0, 7, 0, 3, 0, 0, 0, 1, 2],
+    [1, 2, 0, 0, 0, 7, 4, 0, 0],
+    [0, 4, 9, 2, 0, 6, 0, 0, 7],
 ]
 
 
 def solve(bo):
     find = find_empty(bo)
     if not find:
-        return true
+        return True
     else:
-        bo = find_possibility(find, bo)
+        if find_possibility(find, bo):
+            bo[find[0], find[1]] = i
+
 
 
 def find_empty(bo):
@@ -46,19 +48,19 @@ def print_board(bo):
 
 def find_possibility(find, bo):
     row, col = find
-    start_number= bo[row][col]
-    square = [row-row % 3, col-col % 3]
+    start_number = bo[row][col] + 1
     for i in range(start_number, 10):
+        square = [row - row % 3, col - col % 3]
         for j in range(9):
             if j % 3 == 0 and j != 0:
-                square[1] += 1
-                square[0] -= 3
-
-            if bo[col][j] == i or bo[j][row] == i or bo[square[0]][square[1]] == i:
-                j = 0
+                square[0] += 1
+                square[1] -= 3
+            print(square[0], ", ", square[1], ", j = ", j, ",i = ", i)
+            if bo[j][col] == i or bo[row][j] == i or bo[square[0]][square[1]] == i:
+                print("col=", col, ", row=", row)
                 break
-        if(j == 8):
-            return i
-        else:
-            square[0] += 1
+            if j == 8:
+                return i
+            else:
+                square[1] += 1
     return None

@@ -14,13 +14,29 @@ board = [
 
 
 def solve(bo):
+    all_find = []
     find = find_empty(bo)
-    if not find:
-        return True
-    else:
-        if find_possibility(find, bo):
-            bo[find[0], find[1]] = i
-
+    row, col = find
+    all_find.append((row, col))
+    while True:
+        print(all_find)
+        row, col = find
+        possibility = find_possibility(find, bo)
+        if possibility != 10:
+            bo[row][col] = possibility
+            print_board(bo)
+            find = find_empty(bo)
+            if not find_empty(bo):
+                return True
+            row, col = find
+            all_find.append((row, col))
+        else:
+            bo[row][col] = 0
+            print_board(bo)
+            all_find.pop()
+            find = all_find[len(all_find)-1]
+        if not find_empty:
+            return True
 
 
 def find_empty(bo):
@@ -55,12 +71,12 @@ def find_possibility(find, bo):
             if j % 3 == 0 and j != 0:
                 square[0] += 1
                 square[1] -= 3
-            print(square[0], ", ", square[1], ", j = ", j, ",i = ", i)
+           # print(square[0], ", ", square[1], ", j = ", j, ",i = ", i)
             if bo[j][col] == i or bo[row][j] == i or bo[square[0]][square[1]] == i:
-                print("col=", col, ", row=", row)
+            #    print("col=", col, ", row=", row)
                 break
             if j == 8:
                 return i
             else:
                 square[1] += 1
-    return None
+    return 10

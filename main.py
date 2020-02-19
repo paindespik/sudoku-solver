@@ -46,8 +46,9 @@ def print_board(bo):
 
 def find_possibility(find, bo):
     row, col = find
+    start_number= bo[row][col]
     square = [row-row % 3, col-col % 3]
-    for i in range(1, 10):
+    for i in range(start_number, 10):
         for j in range(9):
             if j % 3 == 0 and j != 0:
                 square[1] += 1
